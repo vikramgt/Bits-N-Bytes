@@ -14,14 +14,14 @@ from rest_framework.response import Response
 from rest_framework import status
 from .models import QuizResponse
 from .serializers import QuizResponseSerializer
+from .models import FAQ
 
 def HomePage(request):
     return render(request, 'home.html')
 
 
 def foucsmode(request):  
-    return render(request, 'focusMode.html')
-
+    return render(request, 'focusmode.html')
 
 def SignIn(request):
     print(request.method)
@@ -60,6 +60,13 @@ def Logout (request):
     return redirect('home')
 # Create your views here.
 
+def MyApi(request):
+    return render(request, 'my-api-endpoint.html')
+
+def MentalHealth(request):
+    faqs = FAQ.objects.all()  
+    return render(request, 'MentalHealth.html', {'faqs': faqs})
+
 class QuizResponseView(APIView):
     def post(self, request):
         serializer = QuizResponseSerializer(data=request.data)
@@ -69,3 +76,7 @@ class QuizResponseView(APIView):
             return Response({'message': 'Data received successfully'}, status=status.HTTP_201_CREATED)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+
+
+
