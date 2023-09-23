@@ -3,11 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My Website</title>
-
-  
-    
- 
+    <title>PeacefulMinds</title>
     {%load static%}
     <link
       rel="stylesheet"
@@ -33,7 +29,7 @@
               {% if 'user' in request.session %}
 <li><a href="taketest">Take Test</a></li>
 {% else %}
-<li><a href="taketest">Take Test</a></li>
+<li><a href="signin">Take Test</a></li>
 {% endif %}
 
                 </li>
@@ -43,15 +39,25 @@
             <li><a href="focusMode">Focus Mode</a></li>
             <li><a href="Mentalhealth">Mental Health</a></li>
             <li><a href="#aboutus1">About Us</a></li>
+            <li><a href="report_bullying">Report</a></li>
            
           </ul>
 
+          {% if 'user' in request.session %}
           <button
             class="sign-in"
-            onclick="location.href='{% url 'signin' %}'"
+            onclick="location.href='{% url 'logout' %}'"
           >
             Logout
           </button>
+          {% else %}
+          <button
+          class="sign-in"
+          onclick="location.href='{% url 'signin' %}'"
+        >
+          SignIn
+        </button>
+        {%endif%}
         </div>
       </div>
     </header>

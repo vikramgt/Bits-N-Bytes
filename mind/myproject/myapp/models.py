@@ -37,3 +37,10 @@ class FAQ(models.Model):
     question = models.CharField(max_length=255)
     answer = models.TextField()
     blog_url = models.URLField()
+
+
+
+class BullyingReport(models.Model):
+    name = models.CharField(max_length=100)
+    email = models.EmailField()
+    message = models.TextField()

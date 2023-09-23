@@ -54,7 +54,8 @@ header {
 }
 
 .navigation button:hover {
-    background-color: white;
+    background-color: #385adb;
+    
 }
 
 html,
@@ -74,6 +75,8 @@ body {
     background-repeat: no-repeat;
     background-position: center;
     background: linear-gradient( 178.6deg, rgb(20, 36, 50) 11.8%, rgb(124, 143, 161) 83.8%);
+    /* background: url("https://wallpaperaccess.com/full/1098206.jpg"); */
+
 }
 
 .content {
