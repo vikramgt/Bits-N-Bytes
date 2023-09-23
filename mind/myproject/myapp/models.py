@@ -33,3 +33,7 @@ class personal_details(models.Model):
 class QuizResponse(models.Model):
     answers = models.TextField()
 
+class FAQ(models.Model):
+    question = models.CharField(max_length=255)
+    answer = models.TextField()
+    blog_url = models.URLField()
