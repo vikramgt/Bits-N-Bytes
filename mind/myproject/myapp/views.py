@@ -19,7 +19,7 @@ def HomePage(request):
     return render(request, 'home.html')
 
 
-def foucsmode(request):  
+def FocusMode(request):  
     return render(request, 'foucsmode.html')
 
 def SignIn(request):
