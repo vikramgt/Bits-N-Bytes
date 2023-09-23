@@ -34,3 +34,7 @@ class QuizResponse(models.Model):
     user_id = models.OneToOneField('myapp.user_id', on_delete=models.CASCADE, primary_key=True)
     answers = models.TextField()
 
+class FAQ(models.Model):
+    question = models.CharField(max_length=255)
+    answer = models.TextField()
+    blog_url = models.URLField()
