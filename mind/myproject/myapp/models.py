@@ -31,5 +31,6 @@ class personal_details(models.Model):
 
 
 class QuizResponse(models.Model):
+    user_id = models.OneToOneField('myapp.user_id', on_delete=models.CASCADE, primary_key=True)
     answers = models.TextField()
 
