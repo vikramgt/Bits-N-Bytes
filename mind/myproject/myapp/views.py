@@ -19,8 +19,9 @@ def HomePage(request):
     return render(request, 'home.html')
 
 
-def FocusMode(request):  
-    return render(request, 'foucsmode.html')
+def foucsmode(request):  
+    return render(request, 'focusMode.html')
+
 
 def SignIn(request):
     print(request.method)
