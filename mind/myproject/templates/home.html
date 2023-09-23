@@ -6,9 +6,9 @@
     <title>My Website</title>
     {% comment %} <link rel="stylesheet" href="./asset/css/index.css" /> {% endcomment %}
     {% load static %}
-    {% comment %} <link rel="stylesheet" type="text/css" href="{% static 'my_app/css/index.css' %}">
+    {% comment %} <link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}">
 
-    <script src="{% static 'my_app/js/index.js' %}"></script> {% endcomment %}
+    <script src="{% static 'js/index.js' %}"></script> {% endcomment %}
     <style>
         
 
@@ -330,9 +330,6 @@ h1 {
       <div class="header-div">
         <div class="navigation">
           <ul>
-
-            <li><a href="{%url 'taketest'%}">Take Test</a></li>
-
             <li>
               <li>{% if 'user' in request.session %}
                 <a href="taketest">Take Test</a>
@@ -346,18 +343,17 @@ h1 {
             {% if 'user' in request.session %}
             <li><a href="{% url 'logout' %}">Sign Out</a></li>
             {% endif %}
-            <li><a href="focusMode">Focus Mode</a></li>
-
             <li><a href="#">About Us</a></li>
             <li><a href="#">Contact Us</a></li>
           </ul>
-
-          <button
-            class="sign-in"
-            onclick="location.href='{%url 'signin'%}'"
-          >
-            Logout
+          {% if 'user' in request.session %}
+          <button>Welcome, {{ request.session.user }}!</button>
+          {% else %}
+          <button class="sign-in" onclick="location.href='signin'">
+            Sign In
           </button>
+
+          {% endif %}
         </div>
       </div>
     </header>
