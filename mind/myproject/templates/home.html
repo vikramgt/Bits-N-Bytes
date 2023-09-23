@@ -334,14 +334,14 @@ h1 {
             <li><a href="{%url 'taketest'%}">Take Test</a></li>
 
             <li>
-              <li>
+              <li>{% if 'user' in request.session %}
                 <a href="taketest">Take Test</a>
-            
+                {% else %}
                 <a href="signin">Take Test</a>
   
                 </button>
   
-             
+                {% endif %}
                 </li>
             {% if 'user' in request.session %}
             <li><a href="{% url 'logout' %}">Sign Out</a></li>
