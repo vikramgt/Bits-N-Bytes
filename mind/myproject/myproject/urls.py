@@ -29,7 +29,7 @@ urlpatterns = [
     path('signup/',views.SignUp,name='signup'),
     path('focusMode/',views.foucsmode,name='focusMode'),
     path('logout/', views.Logout, name='logout'),
-    path('MentalHealth/', views.MentalHealth, name='logout'),
+    path('Mentalhealth/', views.MentalHealth, name='logout'),
     path('my-api-endpoint/' ,views.MyApi, name='my-api-endpoint'),
 ]
 
