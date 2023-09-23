@@ -7,10 +7,21 @@ from django.contrib.auth.backends import BaseBackend
 from django.contrib.auth import get_user_model
 # from myapp.backends import EmailBackend
 from .authentication import EmailBackend
-from django.contrib.auth import logout
+
+import pdb
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from .models import QuizResponse
+from .serializers import QuizResponseSerializer
 
 def HomePage(request):
     return render(request, 'home.html')
+
+
+def foucsmode(request):  
+    return render(request, 'focusMode.html')
+
 
 def SignIn(request):
     print(request.method)
@@ -43,8 +54,18 @@ def SignUp (request):
     }
     return render(request, 'signup.html', context)
 
+def Logout (request):
+    logout(request) 
+    request.session.flush()  
+    return redirect('home')
 # Create your views here.
-def Logout(request):
-    logout(request)  # Log the user out
-    request.session.flush()  # Clear the session data
-    return redirect('home')  # Redirect to the home page or another desired page
+
+class QuizResponseView(APIView):
+    def post(self, request):
+        serializer = QuizResponseSerializer(data=request.data)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response({'message': 'Data received successfully'}, status=status.HTTP_201_CREATED)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

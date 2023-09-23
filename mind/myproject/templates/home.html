@@ -330,7 +330,24 @@ h1 {
       <div class="header-div">
         <div class="navigation">
           <ul>
+
             <li><a href="{%url 'taketest'%}">Take Test</a></li>
+
+            <li>
+              <li>{% if 'user' in request.session %}
+                <a href="taketest">Take Test</a>
+                {% else %}
+                <a href="signin">Take Test</a>
+  
+                </button>
+  
+                {% endif %}
+                </li>
+            {% if 'user' in request.session %}
+            <li><a href="{% url 'logout' %}">Sign Out</a></li>
+            {% endif %}
+            <li><a href="focusMode">Focus Mode</a></li>
+
             <li><a href="#">About Us</a></li>
             <li><a href="#">Contact Us</a></li>
           </ul>
