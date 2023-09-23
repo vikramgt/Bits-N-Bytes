@@ -18,6 +18,10 @@ from .serializers import QuizResponseSerializer
 def HomePage(request):
     return render(request, 'home.html')
 
+
+def foucsmode(request):  
+    return render(request, 'foucsmode.html')
+
 def SignIn(request):
     print(request.method)
     if request.method == "POST":
