@@ -27,7 +27,7 @@ urlpatterns = [
     path('signin/',views.SignIn,name='signin'),
     path('taketest/',views.TakeTest,name='taketest'),
     path('signup/',views.SignUp,name='signup'),
-    path('focusMode/',views.FocusMode,name='focusMode'),
+    path('focusMode/',views.foucsmode,name='focusMode'),
     path('logout/', views.Logout, name='logout'),
 ]
 
