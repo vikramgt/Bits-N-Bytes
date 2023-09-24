@@ -18,11 +18,10 @@ from .serializers import QuizResponseSerializer
 from .models import FAQ
 import tensorflow as tf
 # from tensorflow import keras
-from tensorflow.keras.models import load_model
+import joblib
 import numpy as np
-
 # Adjust the path accordingly
-loaded_model = load_model('best_model.h5')
+loaded_model = joblib.load('gbc_model.joblib')
 
 
 def HomePage(request):
