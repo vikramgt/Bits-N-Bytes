@@ -1,3 +1,10 @@
+function getCookie(name) {
+  const cookieValue = document.cookie.match("(^|;)\\s*" + name + "\\s*=\\s*([^;]+)");
+  return cookieValue ? cookieValue.pop() : "";
+}
+
+const csrfToken = getCookie("csrftoken");
+
 const quizData = [
     {
       question: "Are you self-employed?",
@@ -182,13 +189,14 @@ const quizData = [
         $.ajax({
           url: '/my-api-endpoint/',
           method: 'POST',
+          headers: {"X-CSRFToken": csrfToken,},
           data: {
             'my_array': JSON.stringify(answerArry)
           },
           success: function(response) {
             console.log(response);
             alert("Success!");
-            location.href("../pages/finsh.html")
+            window.location.href("../templates/home.html")
           },
           error: function(xhr, status, error) {
             console.log(error);
@@ -201,4 +209,5 @@ const quizData = [
   
     
   });
+
   
