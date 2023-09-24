@@ -80,3 +80,18 @@ class QuizResponseView(APIView):
 
 
 
+from .forms import BullyingReportForm
+
+def report_bullying(request):
+    if request.method == 'POST':
+        form = BullyingReportForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('thank_you')
+    else:
+        form = BullyingReportForm()
+
+    return render(request, 'report_bullying.html', {'form': form})
+
+def thank_you(request):
+    return render(request, 'thank_you.html')
