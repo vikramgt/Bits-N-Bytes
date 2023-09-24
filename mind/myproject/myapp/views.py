@@ -1,3 +1,4 @@
+from .forms import BullyingReportForm
 from django.shortcuts import render, HttpResponse, redirect
 from .models import user_id
 from django.contrib.auth import login, logout
@@ -100,3 +101,19 @@ class QuizResponseView(APIView):
             return Response({'predictions': predictions.tolist()}, status=status.HTTP_200_OK)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+def report_bullying(request):
+    if request.method == 'POST':
+        form = BullyingReportForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('thank_you')
+    else:
+        form = BullyingReportForm()
+
+    return render(request, 'report_bullying.html', {'form': form})
+
+
+def thank_you(request):
+    return render(request, 'thank_you.html')
