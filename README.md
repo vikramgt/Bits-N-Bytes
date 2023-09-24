@@ -15,7 +15,7 @@ This is a comprehensive mental health and well-being website developed with the 
 - [Future Enhancements](#future-enhancements)
 - [Contributing](#contributing)
 - [License](#license)
-
+- [Google Docs](https://docs.google.com/document/d/1C-vHRVG8lMH9vuElaSh7YfqhXsM6FxfvRAOUMg3ETtQ/edit?usp=sharing)
 ## Features
 
 1. **Home Page:** The website's landing page introduces its purpose and intentions.
