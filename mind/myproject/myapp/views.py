@@ -19,7 +19,9 @@ from .models import FAQ
 import tensorflow as tf
 # from tensorflow import keras
 import joblib
+import pandas as pd
 import numpy as np
+
 # Adjust the path accordingly
 loaded_model = joblib.load('gbc_model.joblib')
 
@@ -84,22 +86,22 @@ def MentalHealth(request):
 
 class QuizResponseView(APIView):
     def post(self, request):
-        serializer = QuizResponseSerializer(data=request.data)
+        breakpoint()
+        feature_names = ['Age', 'Gender', 'self_employed', 'family_history',
+                         'work_interfere', 'no_employees', 'remote_work', 'tech_company',
+                         'benefits', 'care_options', 'wellness_program', 'seek_help',
+                         'anonymity', 'leave', 'mental_health_consequence',
+                         'phys_health_consequence', 'coworkers', 'supervisor',
+                         'mental_health_interview', 'phys_health_interview',
+                         'mental_vs_physical', 'obs_consequence']
+        query_dict = request.data
+        values = query_dict.getlist('my_array[]')
 
-        if serializer.is_valid():
-            serializer.save()
-            breakpoint()
-            input_data = request.data[serializer]
-
-            # Preprocess the input data if needed (e.g., convert to NumPy array)
-            input_data = np.array(input_data)
-
-            # Make predictions using the loaded model
-            predictions = loaded_model.predict(input_data)
-
-            return Response({'predictions': predictions.tolist()}, status=status.HTTP_200_OK)
-
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        data_dict = {feature_name: [int(value)] for feature_name, value in zip(feature_names, values)}
+        # data_array = np.array(list(data_dict.values()))
+        df = pd.DataFrame(data_dict)
+        pred = loaded_model.predict(df)
+        return Response({'predictions': pred.tolist()}, status=status.HTTP_200_OK)
 
 
 def report_bullying(request):

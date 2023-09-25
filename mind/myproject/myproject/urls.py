@@ -29,7 +29,7 @@ urlpatterns = [
     path('focusMode/', views.foucsmode, name='focusMode'),
     path('logout/', views.Logout, name='logout'),
     path('Mentalhealth/', views.MentalHealth, name='Mentalhealth'),
-    path('my-api-endpoint/', views.MyApi, name='my-api-endpoint'),
+    # path('my-api-endpoint/', views.MyApi, name='my-api-endpoint'),
     path('report_bullying/', views.report_bullying, name='report_bullying'),
     path('thank_you/', views.thank_you, name='thank_you'),
     path('my-api-endpoint/', views.QuizResponseView.as_view(),

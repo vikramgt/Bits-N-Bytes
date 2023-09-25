@@ -3,19 +3,31 @@ function getCookie(name) {
   return cookieValue ? cookieValue.pop() : "";
 }
 
+const choiceToNumber = {
+  'option0': 0,
+  'option1': 1,
+  'option2': 2,
+  'option3': 3,
+  'option4': 4,
+};
+
 const csrfToken = getCookie("csrftoken");
 
 const quizData = [
+    {
+      question: "What is your age?",
+      inputType: "text",
+    },
+    {
+      question: "What is your gender?",
+      choice: ["Male", "Female", "Other"],
+    },
     {
       question: "Are you self-employed?",
       choice: ["yes", "No"],
     },
     {
       question: "Do you have a family history of mental illness?",
-      choice: ["yes", "No"],
-    },
-    {
-      question: "Have you sought treatment for a mental health condition?",
       choice: ["yes", "No"],
     },
     {
@@ -83,11 +95,6 @@ const quizData = [
     },
     {
       question:
-        "Do you think that discussing a physical health issue with your employer would have negative consequences?",
-      choice: ["Yes", "No", "Maybe"],
-    },
-    {
-      question:
         "Would you be willing to discuss a mental health issue with your coworkers??",
       choice: ["Yes", "No", "Some of them"],
     },
@@ -139,10 +146,19 @@ const quizData = [
     questionElement.innerText = `${currentQuestion + 1}. ${
       quizData[currentQuestion].question
     }`;
-  
+    if (currentQuestion === 0) {
+      // Create a text input field for age
+      const inputField = document.createElement("input");
+      inputField.type = "number"; // Set the input type to number
+      inputField.name = "age"; // You can set a name attribute if needed
+      inputField.placeholder = "Enter your age"; // Placeholder text
+      formElement.innerHTML = ""; // Clear the form content
+      formElement.appendChild(inputField); // Append the input field to the form
+    }
+    else{
     const options = quizData[currentQuestion].choice;
     let formHTML = "";
-  
+    
     for (let i = 0; i < options.length; i++) {
       formHTML += `
         <div>
@@ -152,19 +168,24 @@ const quizData = [
         <br>
       `;
     }
-  
     formElement.innerHTML = formHTML;
     document.getElementById("option0").checked = true;
+  }
   }
   
   function getSelected() {
     let answer;
+    if (currentQuestion === 0){
+      const ageInput = document.querySelector("input[name='age']");
+      answer = parseInt(ageInput.value, 10);
+    }
+    else{
     answerEls.forEach((answerEl) => {
       if (answerEl.checked) {
-        answer = answerEl.id;
+        answer = choiceToNumber[answerEl.id];
       }
     });
-  
+    }
     return answer;
   }
   
@@ -173,13 +194,14 @@ const quizData = [
   submitBtn.addEventListener("click", () => {
     const answer = getSelected();
     answerArry.push(answer);
+    let flag = true;
   
     if((currentQuestion+2) === quizData.length){
       const subbtn = document.getElementById("submit");
       subbtn.innerText = "Submit";
     }
   
-    if (answer) {
+    if (flag) {
       currentQuestion++;
   
       if (currentQuestion < quizData.length) {
@@ -191,12 +213,12 @@ const quizData = [
           method: 'POST',
           headers: {"X-CSRFToken": csrfToken,},
           data: {
-            'my_array': JSON.stringify(answerArry)
+            'my_array': answerArry.map(value => typeof value === 'number' ? value : parseInt(value))
           },
           success: function(response) {
             console.log(response);
             alert("Success!");
-            window.location.href("../templates/home.html")
+            window.location.href("{% url 'home' %}")
           },
           error: function(xhr, status, error) {
             console.log(error);
@@ -206,7 +228,7 @@ const quizData = [
       }
       
     }
-  
+  flag = false
     
   });
 
