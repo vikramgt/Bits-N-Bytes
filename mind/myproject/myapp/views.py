@@ -86,7 +86,6 @@ def MentalHealth(request):
 
 class QuizResponseView(APIView):
     def post(self, request):
-        breakpoint()
         feature_names = ['Age', 'Gender', 'self_employed', 'family_history',
                          'work_interfere', 'no_employees', 'remote_work', 'tech_company',
                          'benefits', 'care_options', 'wellness_program', 'seek_help',
@@ -97,11 +96,12 @@ class QuizResponseView(APIView):
         query_dict = request.data
         values = query_dict.getlist('my_array[]')
 
-        data_dict = {feature_name: [int(value)] for feature_name, value in zip(feature_names, values)}
+        data_dict = {feature_name: [
+            int(value)] for feature_name, value in zip(feature_names, values)}
         # data_array = np.array(list(data_dict.values()))
         df = pd.DataFrame(data_dict)
         pred = loaded_model.predict(df)
-        return Response({'predictions': pred.tolist()}, status=status.HTTP_200_OK)
+        return Response({'predictions': 'You Require Mental Care' if pred.tolist()[0] == 1 else 'You do not require any special Mental Care'}, status=status.HTTP_200_OK)
 
 
 def report_bullying(request):
